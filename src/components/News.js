@@ -10,24 +10,41 @@ export class News extends Component {
     this.state = {
       articles: [],
       loading: false, 
+      page:1
     };
   }
 
   async componentDidMount(){
   
-    let url="https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e5192c212d804056a27733f47a4650b8";
+    let url="https://newsapi.org/v2/everything?q=apple&from=2023-05-16&to=2023-05-16&sortBy=popularity&apiKey=e5192c212d804056a27733f47a4650b8";
     let data= await fetch(url);
     let parseData= await data.json()
-    this.setState({articles:parseData.articles})
+    this.setState({articles:parseData.articles,totalResults:parseData.totalResults})
   }
 
 
-handleprv=()=>{
+handleprv= async()=>{
   console.log("previous")
+
+  let url=`https://newsapi.org/v2/everything?q=apple&from=2023-05-16&to=2023-05-16&sortBy=popularity&apiKey=e5192c212d804056a27733f47a4650b8&page=${this.state.page-1}`;
+    let data= await fetch(url);
+    let parseData= await data.json()
+    this.setState({
+      page:this.state.page -1,
+      articles:parseData.articles})
 }
-handlenext=()=>
-{
-  console.log("next")
+handlenext= async ()=>{
+  console.log("next");
+  if(this.state.page +1 >Math.ceil(this.state.totalResults/20)){
+
+  }
+  else{
+  let url=`https://newsapi.org/v2/everything?q=apple&from=2023-05-16&to=2023-05-16&sortBy=popularity&apiKey=e5192c212d804056a27733f47a4650b8&page=${this.state.page+1}&pageSize=20`;
+    let data= await fetch(url);
+    let parseData= await data.json()
+    this.setState({
+      page:this.state.page +1,
+      articles:parseData.articles})}
 }
 
 
@@ -51,7 +68,7 @@ handlenext=()=>
           
         </div>
         <div className="container d-flex justify-content-between">
-    <button className="btn btn-dark" onClick={this.handleprv}>Previous</button>
+    <button disabled={this.state.page<=1} className="btn btn-dark" onClick={this.handleprv}>Previous</button>
     <button className="btn btn-dark" onClick={this.handlenext}>Next</button>
   </div>
       </div>
