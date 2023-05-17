@@ -143,9 +143,9 @@ export class News extends Component {
   render() {
     return (
       <div className="container my -3">
-        <h2>
+        <h1 style={{color}}>
           <center>DAILY NEWS</center>
-        </h2>
+        </h1>
         <div className="row my-5" >
         {this.state.articles.map((element)=>{ return <div className="col-md-3 my-2" key={element.url}>
             <NewsItem
