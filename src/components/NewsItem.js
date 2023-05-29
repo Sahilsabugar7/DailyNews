@@ -6,7 +6,7 @@ export class NewsItem extends Component {
       this.props;
 
     return (
-      <div className="card" style={{ width: "18rem" }}>
+      <div className="card text-center" style={{ width: "18rem" }}>
         <div style={{display:'flex',justifyContent:"flex-end",position:"absolute",right:'0'}}>
         <span
           className="position-absolute top-0  translate-middle badge rounded-pill bg-danger"
@@ -23,6 +23,7 @@ export class NewsItem extends Component {
           }
           className="card-img-top"
           alt="..."
+          style={{width:'285px',height:'195px'}}
         />
         <div className="card-body">
           <h5 className="card-title">{title}</h5>

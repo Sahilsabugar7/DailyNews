@@ -2,31 +2,33 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 export class NavBar extends Component {
-
-  constructor(){
+  constructor() {
     super();
-    this.state={
-      mode:"light",
+    this.state = {
+      mode: "light",
     };
   }
 
-  toggleMode =() =>
-  {
-    this.setState((prevState)=>({
-      mode:prevState.mode==="light"?"dark":"light",
-    }),
-    
-    );
+  toggleMode = () => {
+    this.setState((prevState) => ({
+      mode: prevState.mode === "light" ? "dark" : "light",
+    }));
   };
 
+  handleCountryChange = (event) => {
+    const countryCode = event.target.value;
+    this.props.onCountryChange(countryCode);
+  };
 
   render() {
-   const {mode}=this.state
-   
+    const { mode } = this.state;
+    
 
     return (
       <div>
-        <nav className={`navbar navbar-expand-lg navbar-${mode} bg-${mode}`}>
+        <nav
+          className={`navbar fixed-top navbar-expand-lg navbar-${mode} bg-${mode}`}
+        >
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
               NewsDaILY
@@ -84,19 +86,38 @@ export class NavBar extends Component {
                 </li>
               </ul>
             </div>
-            <div className={`form-check form-switch text-${mode === "light" ? "dark" : "light"}`}>
+            <div className="dropdown">
+             
+
+              {/* <select
+  className="form-select"
+  onChange={this.handleCountryChange}
+>
+  <option value={"us"}>United States</option>
+  <option value={"in"}>India</option>
+  <option value={"ru"}>Russia</option>
+</select> */}
+            </div>
+
+            <div
+              className={`form-check form-switch text-${
+                mode === "light" ? "dark" : "light"
+              }`}
+            >
               <input
                 className="form-check-input"
                 onClick={this.toggleMode}
                 type="checkbox"
                 id="flexSwitchCheckDefault"
               />
-              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckDefault"
+              >
                 Enable Dark Mode
               </label>
             </div>
           </div>
-          
         </nav>
       </div>
     );

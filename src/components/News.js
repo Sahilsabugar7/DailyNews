@@ -22,7 +22,7 @@ export class News extends Component {
     console.log("this is constructor for NEws");
     this.state = {
       articles: [],
-      loading: false,
+      loading: true,
       page: 1,
       totalResults:0
     };
@@ -73,7 +73,7 @@ export class News extends Component {
     // a fake async api call like which sends
     // 20 more records in 1.5 secs
     
-    this.setState({page:this.state.page+1});
+    this.setState({page : this.state.page + 1});
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.contry}&category=${this.props.category}&apiKey=${this.props.apiKeys}&pagesize=${this.props.pagesize}&page=${this.state.page + 1}`;
     this.setState({ loading: true });
     let data = await fetch(url);
@@ -81,6 +81,7 @@ export class News extends Component {
     this.setState({
       articles: this.state.articles.concat(parseData.articles),
       totalResults: parseData.totalResults,
+      loading: false,
       
     })
     
@@ -90,7 +91,7 @@ export class News extends Component {
   render() {
     return (
       <div className="container my -3">
-        <h1 style={{ color: "darkslateblue" }}>
+        <h1 style={{ color: "darkslateblue",marginTop:'75px'}}>
           <center>DAILY NEWS OF {this.capitalizeFirstLetter(this.props.category)}</center>
         </h1>
         <div style={{ textAlign: "center" }}>
